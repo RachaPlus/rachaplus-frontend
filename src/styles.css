@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* ── Custom theme (migrado do tailwind.config.js) ─────────────────────── */
+@theme {
+  --color-pitch: #2C2C2C;
+  --color-goal:  #12B968;
+  --color-ball:  #F48C06;
+
+  --font-display: "Bebas Neue", sans-serif;
+  --font-sans:    Inter, ui-sans-serif, system-ui;
+
+  --animate-slide-up:    slideUp    0.6s cubic-bezier(0.16,1,0.3,1);
+  --animate-fade-in:     fadeIn     0.4s ease-out;
+  --animate-spin-slow:   spinCW    35s  linear infinite;
+  --animate-spin-medium: spinCW    22s  linear infinite;
+  --animate-spin-fast:   spinCW    14s  linear infinite;
+  --animate-spin-rev:    spinCCW   28s  linear infinite;
+  --animate-pulse-glow:  pulseGlow  3.5s ease-in-out infinite;
+  --animate-scan:        scan       6s  ease-in-out infinite;
+}
+
+@keyframes slideUp   { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fadeIn    { from { opacity:0 } to { opacity:1 } }
+@keyframes spinCW    { from { transform:rotate(0deg)   } to { transform:rotate(360deg)  } }
+@keyframes spinCCW   { from { transform:rotate(0deg)   } to { transform:rotate(-360deg) } }
+@keyframes pulseGlow { 0%,100% { transform:scale(1);    opacity:0.7 } 50% { transform:scale(1.06); opacity:1 } }
+@keyframes scan      { 0%,100% { transform:translateY(-120px); opacity:0 } 50% { transform:translateY(120px); opacity:0.6 } }
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1A1A1A;
+    color: #fff;
+    font-family: Inter, ui-sans-serif, system-ui;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset;
+    -webkit-text-fill-color: #ffffff;
+    caret-color: #ffffff;
+    transition: background-color 9999s 0s;
+  }
+}
+
+/* ── Utilities ────────────────────────────────────────────────────────── */
+@layer utilities {
+  .orbit-anchor {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 50%;
+  }
+
+  .input-line {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #3a3a3a;
+    padding-bottom: 12px;
+    color: #fff;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.25s ease;
+  }
+  .input-line::placeholder { color: #444; }
+  .input-line:focus        { border-bottom-color: #12B968; }
+  .input-line.error        { border-bottom-color: #ef4444; }
+
+  .btn-primary {
+    width: 100%;
+    background: #12B968;
+    color: #000;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-primary:hover:not(:disabled)  { background: #0fa358; }
+  .btn-primary:active:not(:disabled) { transform: scale(0.985); }
+  .btn-primary:disabled              { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-ghost {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #333;
+    color: #666;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: #555; color: #fff; }
+
+  .glow-green  { box-shadow: 0 0 20px rgba(18,185,104,0.6), 0 0 40px rgba(18,185,104,0.3); }
+  .glow-orange { box-shadow: 0 0 16px rgba(244,140,6,0.7),  0 0 30px rgba(244,140,6,0.3); }
+}
